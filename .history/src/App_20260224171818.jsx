@@ -23,9 +23,7 @@ import {
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'react-i18next';
-// Al principio de tu App.jsx, junto a los demás imports
-import AudioPlayer from './AudioPlayer';
-
+import 
 function cn(...inputs) {
   return twMerge(clsx(inputs));
 }

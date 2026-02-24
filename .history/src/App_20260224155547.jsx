@@ -23,8 +23,6 @@ import {
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'react-i18next';
-// Al principio de tu App.jsx, junto a los demás imports
-import AudioPlayer from './AudioPlayer';
 
 function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -35,14 +33,14 @@ gsap.registerPlugin(ScrollTrigger);
 // ==========================================
 // DATA: 8 CASOS DE ESTUDIO Y CONTENIDO
 // ==========================================
-
+  
 const projects = [
   { 
     id: 1, 
     title: "TenisDrop AI", 
     cat: "Next.js / Python", 
     year: "2025",
-    description: "projects.1.description",
+    description: "Plataforma impulsada por IA para predecir el valor de reventa de zapatillas de edición limitada utilizando modelos de machine learning y scraping en tiempo real.",
     techStack: ["Next.js", "Python", "TensorFlow", "TailwindCSS"],
     img: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=1000&auto=format&fit=crop" 
   },
@@ -51,7 +49,7 @@ const projects = [
     title: "Crypto Terminal", 
     cat: "React / WebSockets", 
     year: "2025",
-    description: "projects.2.description",
+    description: "Dashboard de trading en tiempo real que procesa más de 10,000 transacciones por segundo con latencia ultra baja, optimizado para day traders.",
     techStack: ["React", "WebSockets", "Zustand", "Chart.js"],
     img: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=1000&auto=format&fit=crop" 
   },
@@ -60,7 +58,7 @@ const projects = [
     title: "Neural Dashboard", 
     cat: "Three.js / GSAP", 
     year: "2024",
-    description: "projects.3.description",
+    description: "Visualización de datos 3D interactiva para una startup de biotecnología. Permite explorar redes neuronales simuladas directo en el navegador.",
     techStack: ["Three.js", "React Three Fiber", "GSAP", "WebGL"],
     img: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1000&auto=format&fit=crop" 
   },
@@ -69,7 +67,7 @@ const projects = [
     title: "E-comm Luxury", 
     cat: "Shopify / React", 
     year: "2024",
-    description: "projects.4.description",
+    description: "Arquitectura headless commerce para una marca de moda de lujo. Transiciones fluidas y un tiempo de carga inferior a 1.2 segundos a nivel global.",
     techStack: ["Shopify Hydrogen", "React", "GraphQL", "Framer Motion"],
     img: "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000&auto=format&fit=crop" 
   },
@@ -78,7 +76,7 @@ const projects = [
     title: "Marwind Headless", 
     cat: "WordPress / React", 
     year: "2024",
-    description: "projects.5.description",
+    description: "Remodelación completa de infraestructura monolítica a Headless CMS. Rediseño basado en Figma implementando un frontend desacoplado de alto rendimiento.",
     techStack: ["React", "WP REST API", "GSAP", "TailwindCSS"],
     img: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1000&auto=format&fit=crop" 
   },
@@ -87,7 +85,7 @@ const projects = [
     title: "Streamer Analytics SaaS", 
     cat: "Next.js / Node.js", 
     year: "2026",
-    description: "projects.6.description",
+    description: "Plataforma SaaS B2B que centraliza métricas de influencers y streamers en múltiples redes para agencias de marketing, con reportes automatizados.",
     techStack: ["Next.js", "Node.js", "PostgreSQL", "Prisma"],
     img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop" 
   },
@@ -96,7 +94,7 @@ const projects = [
     title: "Sonic AI Studio", 
     cat: "Vue / WebAudio API", 
     year: "2026",
-    description: "projects.7.description",
+    description: "Interfaz web para un motor de generación musical por IA. Incluye un secuenciador multipista renderizado en el cliente y exportación en la nube.",
     techStack: ["Vue.js", "WebAudio API", "Pinia", "AWS S3"],
     img: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=1000&auto=format&fit=crop" 
   },
@@ -105,7 +103,7 @@ const projects = [
     title: "Nomad Visa Portal", 
     cat: "React / Firebase", 
     year: "2025",
-    description: "projects.8.description",
+    description: "Sistema de gestión documental seguro para facilitar aplicaciones a visas de turismo y nómada digital, con encriptación de extremo a extremo.",
     techStack: ["React", "Firebase", "Crypto.js", "Material UI"],
     img: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?q=80&w=1000&auto=format&fit=crop" 
   }
@@ -119,20 +117,20 @@ const skills = [
 
 const faqs = [
   {
-    question: "faqs.1.question",
-    answer: "faqs.1.answer"
+    question: "¿Cuál es tu proceso de trabajo?",
+    answer: "Mi proceso se divide en 4 fases: Descubrimiento (entender el negocio y requerimientos), Diseño de Arquitectura (selección de stack tecnológico), Desarrollo (sprints ágiles con entregables semanales) y Lanzamiento (QA riguroso, optimización SEO y despliegue)."
   },
   {
-    question: "faqs.2.question",
-    answer: "faqs.2.answer"
+    question: "¿Cuánto tiempo toma desarrollar un proyecto desde cero?",
+    answer: "Un landing page interactivo de alto rendimiento puede tomar entre 2 a 4 semanas. Plataformas complejas, dashboards o e-commerce headless pueden requerir de 2 a 3 meses dependiendo de la integración de APIs y el nivel de animaciones personalizadas."
   },
   {
-    question: "faqs.3.question",
-    answer: "faqs.3.answer"
+    question: "¿Trabajas solo con React o usas otras tecnologías?",
+    answer: "Me especializo en el ecosistema React (Next.js, Vite), pero soy un desarrollador agnóstico al framework. Utilizo las herramientas que mejor resuelvan el problema, incluyendo Vue, Svelte, o soluciones vanilla con JS/TS puro si el rendimiento extremo lo requiere."
   },
   {
-    question: "faqs.4.question",
-    answer: "faqs.4.answer"
+    question: "¿Haces mantenimiento después del lanzamiento?",
+    answer: "Sí, ofrezco planes de mantenimiento mensual que incluyen actualizaciones de dependencias, monitoreo de rendimiento (Core Web Vitals), copias de seguridad y horas de soporte técnico para nuevas características."
   }
 ];
 
@@ -141,71 +139,26 @@ const faqs = [
 // ==========================================
 
 const Navbar = ({ isDark, toggleTheme }) => {
-  const { t, i18n } = useTranslation();
-
-  // Función para cambiar el idioma y ajustar la dirección (RTL para árabe)
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
-  };
-
-  // Función para hacer scroll suave a cualquier sección
-  const handleScroll = (e, targetId) => {
-    e.preventDefault();
-    const element = document.getElementById(targetId);
-    if (element) {
-      // scrollIntoView funciona perfectamente en sintonía con Lenis
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 bg-white/80 dark:bg-[#030303]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white flex justify-between items-center transition-colors duration-500">
-      
-      {/* Al dar clic al logo, te lleva arriba del todo */}
-      <div 
-        onClick={(e) => handleScroll(e, 'home')}
-        className="font-black text-2xl tracking-tighter uppercase cursor-pointer hover:scale-105 transition-transform"
-      >
+      <div className="font-black text-2xl tracking-tighter uppercase cursor-pointer hover:scale-105 transition-transform">
         DEV<span className="text-green-500">.</span>PRO
       </div>
-      
       <div className="hidden md:flex gap-8 font-mono text-sm tracking-widest">
-        <a href="#work" onClick={(e) => handleScroll(e, 'work')} className="hover:text-green-500 transition-colors">{t('nav.work')}</a>
-        <a href="#services" onClick={(e) => handleScroll(e, 'services')} className="hover:text-green-500 transition-colors">{t('nav.services')}</a>
-        <a href="#about" onClick={(e) => handleScroll(e, 'about')} className="hover:text-green-500 transition-colors">{t('nav.about')}</a>
-        {/* Usamos un fallback por si 'nav.faq' no está en i18n, mostrará 'FAQ' por defecto */}
-        <a href="#faq" onClick={(e) => handleScroll(e, 'faq')} className="hover:text-green-500 transition-colors">{t('nav.faq', 'FAQ')}</a>
+        <a href="#work" className="hover:text-green-500 transition-colors">TRABAJO</a>
+        <a href="#services" className="hover:text-green-500 transition-colors">SERVICIOS</a>
+        <a href="#about" className="hover:text-green-500 transition-colors">SOBRE MÍ</a>
       </div>
-      
       <div className="flex items-center gap-4">
-        
-        {/* Selector de idiomas con el fix para el modo oscuro */}
-        <select 
-          onChange={(e) => changeLanguage(e.target.value)} 
-          className="bg-transparent text-sm font-bold border-none outline-none cursor-pointer uppercase dark:bg-[#030303] dark:text-white"
-          value={i18n.language || "es"}
-        >
-          <option value="es">ES</option>
-          <option value="en">EN</option>
-          <option value="ar">AR</option>
-          <option value="fr">FR</option>
-          <option value="zh">ZH</option>
-        </select>
-
         <button 
           onClick={toggleTheme}
           className="p-2 rounded-full bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 transition-colors"
+          aria-label="Toggle Theme"
         >
           {isDark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-zinc-600" />}
         </button>
-        
-        {/* Al dar clic en Contacto te lleva al Footer */}
-        <button 
-          onClick={(e) => handleScroll(e, 'contact')}
-          className="px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-black font-bold rounded-full hover:bg-green-500 transition-all text-sm uppercase"
-        >
-          {t('nav.contact')}
+        <button className="px-6 py-2 bg-zinc-900 dark:bg-white text-white dark:text-black font-bold rounded-full hover:bg-green-500 dark:hover:bg-green-500 hover:text-white dark:hover:text-black transition-all text-sm uppercase">
+          Contactar
         </button>
       </div>
     </nav>
@@ -213,7 +166,6 @@ const Navbar = ({ isDark, toggleTheme }) => {
 };
 
 const HeroSection = () => {
-  const { t } = useTranslation();
   const container = useRef(null);
   const textRefs = useRef([]);
 
@@ -253,7 +205,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section id="home" ref={container} className="h-screen flex flex-col justify-center px-6 md:px-20 relative overflow-hidden section-anim">
+    <section ref={container} className="h-screen flex flex-col justify-center px-6 md:px-20 relative overflow-hidden section-anim">
       {/* Glows adaptables */}
       <div className="hero-glow absolute top-20 right-20 w-[500px] h-[500px] bg-green-400/30 dark:bg-green-500/20 blur-[150px] rounded-full pointer-events-none transition-colors duration-500" />
       <div className="hero-glow absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-400/20 dark:bg-blue-500/10 blur-[150px] rounded-full pointer-events-none transition-colors duration-500" />
@@ -261,23 +213,23 @@ const HeroSection = () => {
       <div className="z-10 mt-20">
         <div className="overflow-hidden mb-4">
           <p ref={addToRefs} className="text-green-600 dark:text-green-400 font-mono tracking-[0.3em] text-sm md:text-base uppercase">
-            {t('hero.role')}
+            Ingeniero de Software Frontend
           </p>
         </div>
         
         <h1 className="text-[12vw] md:text-[8vw] font-black tracking-tighter leading-[0.85] mb-10 text-zinc-900 dark:text-white transition-colors duration-500">
-          <div className="overflow-hidden"><span ref={addToRefs} className="block">{t('hero.title1')}</span></div>
-          <div className="overflow-hidden"><span ref={addToRefs} className="block text-green-500">{t('hero.title2')}</span></div>
+          <div className="overflow-hidden"><span ref={addToRefs} className="block">CREATIVE</span></div>
+          <div className="overflow-hidden"><span ref={addToRefs} className="block text-green-500">ENGINEER</span></div>
         </h1>
         
         <div className="flex flex-col md:flex-row gap-10 md:items-center mt-12">
           <p ref={addToRefs} className="max-w-xl text-zinc-600 dark:text-gray-400 text-lg md:text-xl leading-relaxed transition-colors duration-500">
-            {t('hero.description')}
+            Especializado en arquitecturas escalables, interfaces de alto rendimiento, animaciones fluidas y experiencias web inmersivas que convierten usuarios en clientes leales.
           </p>
           <div ref={addToRefs} className="flex flex-wrap gap-4">
             <div className="px-6 py-3 border border-zinc-300 dark:border-white/20 rounded-full font-mono text-sm uppercase flex items-center gap-2 text-zinc-800 dark:text-white transition-colors duration-500">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              {t('hero.available')}
+              Disponible para proyectos
             </div>
           </div>
         </div>
@@ -315,7 +267,6 @@ const SkillsMarquee = () => {
 };
 
 const AboutSection = () => {
-  const { t } = useTranslation();
   const container = useRef(null);
 
   useLayoutEffect(() => {
@@ -343,28 +294,28 @@ const AboutSection = () => {
       <div className="grid md:grid-cols-2 gap-20 items-center">
         <div>
           <h2 className="text-4xl md:text-6xl font-black mb-10 uppercase tracking-tighter about-text text-zinc-900 dark:text-white transition-colors duration-500">
-            {t('about.title1')} <br /><span className="text-green-500">{t('about.title2')}</span>
+            Más allá del <br /><span className="text-green-500">código</span>
           </h2>
           <div className="space-y-6 text-zinc-600 dark:text-gray-400 text-lg leading-relaxed transition-colors duration-500">
             <p className="about-text">
-              {t('about.p1')}
+              No solo escribo React y CSS. Construyo puentes entre el diseño visual y la ingeniería lógica. Mi enfoque se centra en crear arquitecturas robustas que no sacrifiquen la experiencia del usuario.
             </p>
             <p className="about-text">
-              {t('about.p2')}
+              Con profunda experiencia en el ecosistema JavaScript, integro tecnologías modernas como WebGL, GSAP y arquitecturas Headless para entregar productos digitales que destacan en un mercado saturado.
             </p>
             <p className="about-text font-medium text-zinc-800 dark:text-gray-300">
-              {t('about.p3')}
+              Cada milisegundo cuenta, cada pixel importa.
             </p>
           </div>
           
           <div className="mt-12 grid grid-cols-2 gap-8 about-text">
             <div>
               <div className="text-5xl font-black text-zinc-900 dark:text-white transition-colors duration-500">5+</div>
-              <div className="text-green-600 dark:text-green-500 font-mono text-sm mt-2 uppercase">{t('about.exp')}</div>
+              <div className="text-green-600 dark:text-green-500 font-mono text-sm mt-2 uppercase">Años de Exp.</div>
             </div>
             <div>
               <div className="text-5xl font-black text-zinc-900 dark:text-white transition-colors duration-500">40+</div>
-              <div className="text-green-600 dark:text-green-500 font-mono text-sm mt-2 uppercase">{t('about.projectsCount')}</div>
+              <div className="text-green-600 dark:text-green-500 font-mono text-sm mt-2 uppercase">Proyectos</div>
             </div>
           </div>
         </div>
@@ -379,10 +330,10 @@ const AboutSection = () => {
           <div className="absolute bottom-10 left-10 p-6 bg-white/80 dark:bg-black/50 backdrop-blur-md rounded-2xl border border-zinc-200 dark:border-white/10 transition-colors duration-500 shadow-lg dark:shadow-none">
             <Terminal size={32} className="text-green-600 dark:text-green-500 mb-4" />
             <div className="font-mono text-sm text-zinc-800 dark:text-white/80 transition-colors duration-500">
-              <span className="text-green-600 dark:text-green-500">~</span> {t('about.whoami')}<br/>
-              {t('about.role')}<br/>
-              <span className="text-green-600 dark:text-green-500">~</span> {t('about.locationLabel')}<br/>
-              {t('about.location')}
+              <span className="text-green-600 dark:text-green-500">~</span> whoami<br/>
+              Frontend Architect<br/>
+              <span className="text-green-600 dark:text-green-500">~</span> location<br/>
+              Bogotá, Colombia
             </div>
           </div>
         </div>
@@ -392,37 +343,35 @@ const AboutSection = () => {
 };
 
 const ServicesSection = () => {
-  const { t } = useTranslation();
-
   return (
     <section id="services" className="py-32 px-6 md:px-20 bg-slate-50 dark:bg-[#050505] section-anim border-t border-zinc-200 dark:border-white/5 transition-colors duration-500">
       <div className="max-w-7xl mx-auto">
         <div className="mb-20">
-          <p className="text-green-600 dark:text-green-500 font-mono text-sm uppercase tracking-widest mb-4">{t('services.subtitle')}</p>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-zinc-900 dark:text-white transition-colors duration-500">{t('services.title1')}<br/>{t('services.title2')}</h2>
+          <p className="text-green-600 dark:text-green-500 font-mono text-sm uppercase tracking-widest mb-4">Experiencia Técnica</p>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase text-zinc-900 dark:text-white transition-colors duration-500">Capacidades<br/>Principales</h2>
         </div>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
               icon: <Code size={40} />,
-              title: t('services.items.0.title'),
-              desc: t('services.items.0.desc')
+              title: "Desarrollo Frontend",
+              desc: "SPAs, SSG y SSR utilizando el ecosistema React (Next.js, Vite). Código limpio, modular y altamente tipado."
             },
             {
               icon: <Layers size={40} />,
-              title: t('services.items.1.title'),
-              desc: t('services.items.1.desc')
+              title: "Creative Coding",
+              desc: "Animaciones avanzadas con GSAP, Framer Motion y experiencias 3D en el navegador mediante Three.js."
             },
             {
               icon: <Cpu size={40} />,
-              title: t('services.items.2.title'),
-              desc: t('services.items.2.desc')
+              title: "Headless Arquitectura",
+              desc: "Integración de frontends modernos con CMS robustos (Sanity, WordPress Headless) y plataformas e-commerce."
             },
             {
               icon: <Smartphone size={40} />,
-              title: t('services.items.3.title'),
-              desc: t('services.items.3.desc')
+              title: "Optimización Core Web",
+              desc: "Auditorías de rendimiento, mejora de LCP, CLS e INP para garantizar puntuaciones de 90+ en Google Lighthouse."
             }
           ].map((srv, i) => (
             <div key={i} className="bg-white dark:bg-[#0a0a0a] p-10 rounded-[30px] border border-zinc-200 dark:border-white/5 hover:border-green-500/50 hover:-translate-y-2 transition-all duration-300 group shadow-md dark:shadow-none">
@@ -440,10 +389,9 @@ const ServicesSection = () => {
 };
 
 const ProjectCard = ({ project, index }) => {
-  const { t } = useTranslation();
   const container = useRef(null);
   const image = useRef(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // <-- Agregamos el hook de navegación aquí
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -463,12 +411,6 @@ const ProjectCard = ({ project, index }) => {
 
   const isEven = index % 2 === 0;
 
-  // <-- NUEVO: Función para forzar el scroll arriba antes de navegar
-  const handleNavigate = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    navigate(`/projects/${project.id}`);
-  };
-
   return (
     <div 
       ref={container} 
@@ -476,7 +418,8 @@ const ProjectCard = ({ project, index }) => {
         "relative w-full flex flex-col md:flex-row items-center gap-10 md:gap-20 mb-40 px-6 md:px-20 max-w-[1600px] mx-auto group cursor-pointer",
         !isEven && "md:flex-row-reverse"
       )}
-      onClick={handleNavigate} // <-- Usamos la nueva función aquí
+      // <-- Cambiamos el href por el navigate fluido
+      onClick={() => navigate(`/projects/${project.id}`)}
     >
       <div className="w-full md:w-[60%] h-[50vh] md:h-[80vh] relative rounded-[40px] overflow-hidden border border-zinc-200 dark:border-white/10 shadow-xl dark:shadow-none transition-colors duration-500">
         <div className="absolute inset-0 bg-green-500/20 mix-blend-overlay z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -501,7 +444,7 @@ const ProjectCard = ({ project, index }) => {
           {project.title}
         </h2>
         <p className="text-zinc-600 dark:text-gray-400 text-lg leading-relaxed mb-10 max-w-md transition-colors duration-500">
-          {t(project.description)}
+          {project.description}
         </p>
         
         <div className="flex flex-wrap gap-3 mb-12">
@@ -517,7 +460,7 @@ const ProjectCard = ({ project, index }) => {
             <ArrowUpRight size={28} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </div>
           <span className="font-bold text-sm uppercase tracking-widest text-zinc-900 dark:text-white opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-            {t('projectCard.viewCase')}
+            Ver Caso de Estudio
           </span>
         </div>
       </div>
@@ -526,28 +469,17 @@ const ProjectCard = ({ project, index }) => {
 };
 
 const WorksSection = () => {
-  const { t } = useTranslation();
-
   return (
-    // <-- Agregamos overflow-hidden por seguridad
-    <section id="work" className="py-32 section-anim relative transition-colors duration-500 overflow-hidden">
-      
-      {/* <-- Cambiamos items-end por items-start md:items-end para celulares */}
-      <div className="px-6 md:px-20 mb-32 max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-        
-        <div className="w-full max-w-full">
-          <p className="text-green-600 dark:text-green-500 font-mono text-sm uppercase tracking-widest mb-4">
-            {t('works.subtitle')}
-          </p>
-          {/* <-- Ajustamos text-5xl para móvil, text-8xl para PC, y añadimos break-words */}
-          <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85] text-zinc-900 dark:text-white transition-colors duration-500 break-words w-full">
-            {t('works.title1')}<br/>{t('works.title2')}
+    <section id="work" className="py-32 section-anim relative transition-colors duration-500">
+      <div className="px-6 md:px-20 mb-32 max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-end gap-10">
+        <div>
+          <p className="text-green-600 dark:text-green-500 font-mono text-sm uppercase tracking-widest mb-4">Casos de Estudio</p>
+          <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85] text-zinc-900 dark:text-white transition-colors duration-500">
+            Trabajo<br/>Destacado
           </h2>
         </div>
-
-        {/* <-- Quitamos text-right en móviles para que se vea alineado a la izquierda limpio */}
-        <p className="max-w-md text-zinc-600 dark:text-gray-400 text-left transition-colors duration-500">
-          {t('works.description')}
+        <p className="max-w-md text-zinc-600 dark:text-gray-400 text-right md:text-left transition-colors duration-500">
+          Una selección de proyectos recientes enfocados en resolver problemas complejos de negocio mediante ingeniería frontend moderna.
         </p>
       </div>
 
@@ -561,14 +493,13 @@ const WorksSection = () => {
 };
 
 const FAQSection = () => {
-  const { t } = useTranslation();
   const [openIndex, setOpenIndex] = useState(0);
 
   return (
-    <section id="faq" className="py-32 px-6 md:px-20 bg-slate-50 dark:bg-[#050505] section-anim border-t border-zinc-200 dark:border-white/5 transition-colors duration-500">
+    <section className="py-32 px-6 md:px-20 bg-slate-50 dark:bg-[#050505] section-anim border-t border-zinc-200 dark:border-white/5 transition-colors duration-500">
       <div className="max-w-4xl mx-auto">
         <h2 className="text-5xl md:text-7xl font-black tracking-tighter uppercase mb-20 text-center text-zinc-900 dark:text-white transition-colors duration-500">
-          {t('faq.title')}
+          Preguntas Frecuentes
         </h2>
         
         <div className="space-y-4">
@@ -584,7 +515,7 @@ const FAQSection = () => {
                   onClick={() => setOpenIndex(isOpen ? -1 : index)}
                 >
                   <span className={cn("text-xl font-bold pr-8 transition-colors", isOpen ? "text-green-600 dark:text-green-500" : "text-zinc-900 dark:text-white")}>
-                    {t(faq.question)}
+                    {faq.question}
                   </span>
                   <div className={cn("w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-300 shrink-0", isOpen ? "bg-green-500 border-green-500 text-white dark:text-black rotate-180" : "border-zinc-300 dark:border-white/20 text-zinc-600 dark:text-white")}>
                     <ChevronDown size={20} />
@@ -594,7 +525,7 @@ const FAQSection = () => {
                   className={cn("overflow-hidden transition-all duration-500 ease-in-out", isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0")}
                 >
                   <div className="px-8 pb-8 text-zinc-600 dark:text-gray-400 leading-relaxed border-t border-zinc-100 dark:border-white/5 pt-6 mt-2 transition-colors duration-500">
-                    {t(faq.answer)}
+                    {faq.answer}
                   </div>
                 </div>
               </div>
@@ -607,28 +538,26 @@ const FAQSection = () => {
 };
 
 const Footer = () => {
-  const { t } = useTranslation();
-
   return (
-    <footer id="contact" className="relative pt-32 pb-10 border-t border-zinc-200 dark:border-white/10 overflow-hidden section-anim transition-colors duration-500">
+    <footer className="relative pt-32 pb-10 border-t border-zinc-200 dark:border-white/10 overflow-hidden section-anim transition-colors duration-500">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[1000px] aspect-square bg-green-200/50 dark:bg-green-900/10 blur-[200px] rounded-full pointer-events-none transition-colors duration-500" />
       
       <div className="px-6 md:px-20 max-w-[1600px] mx-auto relative z-10 flex flex-col items-center text-center">
         <p className="text-green-600 dark:text-green-500 font-mono text-sm uppercase tracking-widest mb-6 border border-green-500/30 px-6 py-2 rounded-full bg-green-50 dark:bg-green-500/5 transition-colors duration-500">
-          {t('footer.subtitle')}
+          ¿Tienes una idea en mente?
         </p>
         <h2 className="text-[15vw] md:text-[10vw] font-black leading-[0.8] tracking-tighter mb-12 uppercase text-zinc-900 dark:text-white hover:text-green-500 dark:hover:text-green-500 transition-colors duration-500 cursor-pointer">
-          {t('footer.title')}
+          Hablemos
         </h2>
         
         <div className="flex flex-col sm:flex-row gap-6 mb-32">
           <button className="px-12 py-5 bg-zinc-900 dark:bg-white text-white dark:text-black font-black text-lg rounded-full hover:bg-green-500 dark:hover:bg-green-500 hover:text-white transition-all duration-300 shadow-[0_0_0_rgba(34,197,94,0)] hover:shadow-[0_0_40px_rgba(34,197,94,0.4)] flex items-center justify-center gap-3">
             <Mail size={20} />
-            {t('footer.emailBtn')}
+            ENVIAR CORREO
           </button>
           <button className="px-12 py-5 border border-zinc-300 dark:border-white/20 text-zinc-900 dark:text-white font-bold text-lg rounded-full hover:bg-zinc-100 dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex items-center justify-center gap-3">
             <Globe size={20} />
-            {t('footer.callBtn')}
+            AGENDAR LLAMADA
           </button>
         </div>
 
@@ -646,8 +575,8 @@ const Footer = () => {
           </div>
           
           <div className="text-zinc-500 dark:text-gray-500 font-mono text-sm flex flex-col items-center md:items-end gap-2 transition-colors duration-500">
-            <p>{t('footer.madeWith')}</p>
-            <p>© {new Date().getFullYear()} - {t('footer.rights')}</p>
+            <p>DISEÑADO & DESARROLLADO CON ❤️</p>
+            <p>© {new Date().getFullYear()} - TODOS LOS DERECHOS RESERVADOS</p>
           </div>
         </div>
       </div>

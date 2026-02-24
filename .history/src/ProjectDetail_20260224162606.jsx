@@ -1,9 +1,8 @@
 import React, { useLayoutEffect, useEffect, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; // <-- ¡NUEVO! Importamos los hooks de navegación
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import { useTranslation } from 'react-i18next'; // <-- Importado i18n
 import { 
   ArrowLeft, 
   ArrowUpRight, 
@@ -28,8 +27,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 // ==========================================
 // DATA: BASE DE DATOS DE LOS 8 CASOS DE ESTUDIO
-// (Intacta como ordenaste)
 // ==========================================
+// Ahora es un arreglo [] que contiene todos tus proyectos.
 const allProjects = [
   {
     id: 1,
@@ -205,36 +204,15 @@ const allProjects = [
 // ==========================================
 
 const Navbar = ({ isDark, toggleTheme }) => {
-  const navigate = useNavigate(); 
-  const { t, i18n } = useTranslation();
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
-  };
-
+  const navigate = useNavigate(); // <-- Usamos navigate para no recargar la página
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-6 py-6 bg-white/80 dark:bg-[#030303]/80 backdrop-blur-md border-b border-zinc-200 dark:border-white/10 text-zinc-900 dark:text-white flex justify-between items-center transition-colors duration-500">
       <button onClick={() => navigate('/')} className="flex items-center gap-2 font-bold text-sm uppercase tracking-widest hover:text-green-500 transition-colors group">
         <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-        {/* Fallback pattern: si no existe la traduccion, usa "Volver al Portafolio" */}
-        {t('detail.back', 'Volver al Portafolio')}
+        Volver al Portafolio
       </button>
       
       <div className="flex items-center gap-4">
-        {/* Selector de idiomas con fix para modo oscuro incluido */}
-        <select 
-          onChange={(e) => changeLanguage(e.target.value)} 
-          className="bg-transparent text-sm font-bold border-none outline-none cursor-pointer uppercase dark:bg-[#030303] dark:text-white"
-          value={i18n.language || "es"}
-        >
-          <option value="es">ES</option>
-          <option value="en">EN</option>
-          <option value="ar">AR</option>
-          <option value="fr">FR</option>
-          <option value="zh">ZH</option>
-        </select>
-
         <button 
           onClick={toggleTheme}
           className="p-2 rounded-full bg-zinc-100 dark:bg-white/10 hover:bg-zinc-200 dark:hover:bg-white/20 transition-colors"
@@ -268,7 +246,7 @@ const HeroImageParallax = ({ image }) => {
       );
     }, container);
     return () => ctx.revert();
-  }, [image]);
+  }, [image]); // Se vuelve a ejecutar si la imagen cambia
 
   return (
     <div ref={container} className="relative w-full h-[60vh] md:h-[80vh] overflow-hidden rounded-b-[40px] md:rounded-b-[80px] border-b border-zinc-200 dark:border-white/10 mt-[80px]">
@@ -284,7 +262,6 @@ const HeroImageParallax = ({ image }) => {
 };
 
 const ProjectHeader = ({ project }) => {
-  const { t } = useTranslation();
   const headerRef = useRef(null);
 
   useLayoutEffect(() => {
@@ -295,7 +272,7 @@ const ProjectHeader = ({ project }) => {
       );
     }, headerRef);
     return () => ctx.revert();
-  }, [project.id]); 
+  }, [project.id]); // Vuelve a animar si cambia el ID
 
   return (
     <section ref={headerRef} className="pt-20 pb-20 px-6 md:px-20 max-w-[1400px] mx-auto section-fade">
@@ -322,10 +299,10 @@ const ProjectHeader = ({ project }) => {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-10 border-t border-zinc-200 dark:border-white/10">
         {[
-          { label: t('detail.client', 'Cliente'), value: project.client },
-          { label: t('detail.role', 'Rol'), value: t(`details.${project.id}.role`, project.role) },
-          { label: t('detail.time', 'Tiempo'), value: t(`details.${project.id}.timeline`, project.timeline) },
-          { label: t('detail.year', 'Año'), value: project.year }
+          { label: "Cliente", value: project.client },
+          { label: "Rol", value: project.role },
+          { label: "Tiempo", value: project.timeline },
+          { label: "Año", value: project.year }
         ].map((info, idx) => (
           <div key={idx} className="header-anim">
             <p className="text-zinc-500 dark:text-gray-500 font-mono text-xs uppercase tracking-widest mb-2">{info.label}</p>
@@ -338,22 +315,19 @@ const ProjectHeader = ({ project }) => {
 };
 
 const ContentSection = ({ project }) => {
-  const { t } = useTranslation();
   return (
     <section className="py-20 px-6 md:px-20 max-w-[1400px] mx-auto section-fade">
       <div className="grid md:grid-cols-12 gap-10 md:gap-20">
         <div className="md:col-span-4">
-          <h2 className="text-3xl font-black uppercase text-zinc-900 dark:text-white mb-6">
-            {t('detail.challengeTitle', 'El Desafío')}
-          </h2>
+          <h2 className="text-3xl font-black uppercase text-zinc-900 dark:text-white mb-6">El Desafío</h2>
           <div className="w-12 h-1 bg-green-500 mb-8" />
         </div>
         <div className="md:col-span-8">
           <p className="text-xl md:text-2xl text-zinc-600 dark:text-gray-300 leading-relaxed font-light mb-12">
-            {t(`details.${project.id}.overview`, project.overview)}
+            {project.overview}
           </p>
           <p className="text-lg text-zinc-500 dark:text-gray-400 leading-relaxed">
-            {t(`details.${project.id}.challenge`, project.challenge)}
+            {project.challenge}
           </p>
         </div>
       </div>
@@ -384,7 +358,7 @@ const ImageGallery = ({ images }) => {
       });
     }, container);
     return () => ctx.revert();
-  }, [images]); 
+  }, [images]); // Dependencia para cuando cambian las fotos
 
   return (
     <section ref={container} className="py-20 px-6 md:px-20 max-w-[1600px] mx-auto space-y-10 md:space-y-20">
@@ -398,24 +372,19 @@ const ImageGallery = ({ images }) => {
 };
 
 const SolutionSection = ({ project }) => {
-  const { t } = useTranslation();
   return (
     <section className="py-20 px-6 md:px-20 max-w-[1400px] mx-auto section-fade">
       <div className="grid md:grid-cols-12 gap-10 md:gap-20 mb-32">
         <div className="md:col-span-4">
-          <h2 className="text-3xl font-black uppercase text-zinc-900 dark:text-white mb-6">
-            {t('detail.solutionTitle', 'La Solución')}
-          </h2>
+          <h2 className="text-3xl font-black uppercase text-zinc-900 dark:text-white mb-6">La Solución</h2>
           <div className="w-12 h-1 bg-green-500 mb-8" />
         </div>
         <div className="md:col-span-8">
           <p className="text-lg text-zinc-600 dark:text-gray-400 leading-relaxed mb-12">
-            {t(`details.${project.id}.solution`, project.solution)}
+            {project.solution}
           </p>
           
-          <h3 className="text-xl font-bold uppercase text-zinc-900 dark:text-white mb-6">
-            {t('detail.techStackTitle', 'Stack Tecnológico')}
-          </h3>
+          <h3 className="text-xl font-bold uppercase text-zinc-900 dark:text-white mb-6">Stack Tecnológico</h3>
           <div className="flex flex-wrap gap-4">
             {project.techStack.map((tech, idx) => (
               <div key={idx} className="flex items-center gap-3 px-6 py-3 bg-zinc-100 dark:bg-[#0a0a0a] border border-zinc-200 dark:border-white/5 rounded-full text-zinc-800 dark:text-gray-300">
@@ -431,9 +400,7 @@ const SolutionSection = ({ project }) => {
         {project.results.map((res, idx) => (
           <div key={idx} className="p-10 bg-zinc-50 dark:bg-[#0a0a0a] rounded-[30px] border border-zinc-200 dark:border-white/5 text-center transition-colors duration-500 hover:border-green-500/50">
             <div className="text-6xl md:text-7xl font-black text-green-600 dark:text-green-500 mb-4">{res.metric}</div>
-            <div className="text-zinc-600 dark:text-gray-400 font-mono uppercase tracking-widest text-sm">
-              {t(`details.${project.id}.results.${idx}.label`, res.label)}
-            </div>
+            <div className="text-zinc-600 dark:text-gray-400 font-mono uppercase tracking-widest text-sm">{res.label}</div>
           </div>
         ))}
       </div>
@@ -441,20 +408,17 @@ const SolutionSection = ({ project }) => {
   );
 };
 
-const NextProject = ({ nextId, nextTitle, onNavigate }) => {
-  const { t } = useTranslation();
-  
+const NextProject = ({ nextId, nextTitle }) => {
+  const navigate = useNavigate(); // <-- Navegación fluida al siguiente proyecto
   return (
     <section 
       className="h-screen flex items-center justify-center border-t border-zinc-200 dark:border-white/10 relative overflow-hidden bg-zinc-900 dark:bg-[#030303] group cursor-pointer" 
-      onClick={() => onNavigate(nextId)} // <-- Cambiado aquí
+      onClick={() => navigate(`/projects/${nextId}`)}
     >
       <div className="absolute inset-0 bg-green-500/0 group-hover:bg-green-500/10 transition-colors duration-700 z-0" />
       
       <div className="text-center z-10">
-        <p className="text-zinc-400 font-mono text-sm uppercase tracking-[0.3em] mb-6">
-          {t('detail.nextProject', 'Siguiente Proyecto')}
-        </p>
+        <p className="text-zinc-400 font-mono text-sm uppercase tracking-[0.3em] mb-6">Siguiente Proyecto</p>
         <h2 className="text-[10vw] font-black tracking-tighter text-white group-hover:text-transparent group-hover:[-webkit-text-stroke:2px_#22c55e] transition-all duration-500">
           {nextTitle}
         </h2>
@@ -470,13 +434,12 @@ const NextProject = ({ nextId, nextTitle, onNavigate }) => {
 };
 
 const Footer = () => {
-  const { t } = useTranslation();
   return (
     <footer className="py-10 border-t border-zinc-200 dark:border-white/10 bg-white dark:bg-[#030303] transition-colors duration-500">
       <div className="px-6 md:px-20 max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="text-zinc-500 dark:text-gray-500 font-mono text-sm flex flex-col items-center md:items-start gap-2">
-          <p>{t('footer.madeWith', 'DISEÑADO & DESARROLLADO CON ❤️')}</p>
-          <p>© {new Date().getFullYear()} - {t('footer.rights', 'TODOS LOS DERECHOS RESERVADOS')}</p>
+          <p>DISEÑADO & DESARROLLADO CON ❤️</p>
+          <p>© {new Date().getFullYear()} - TODOS LOS DERECHOS RESERVADOS</p>
         </div>
         <div className="flex gap-6">
           <a href="#" className="text-zinc-500 hover:text-green-500 transition-colors uppercase font-bold text-sm">Twitter</a>
@@ -488,18 +451,15 @@ const Footer = () => {
   );
 };
 
-/// ==========================================
+// ==========================================
 // COMPONENTE PRINCIPAL (PLANTILLA)
 // ==========================================
 
 export default function ProjectDetailTemplate() {
-  const { id } = useParams(); 
-  const navigate = useNavigate(); // <-- Añadimos el navigate aquí
+  const { id } = useParams(); // <-- ¡NUEVO! Extraemos el ID numérico de la URL
   const [isDark, setIsDark] = useState(true);
-  
-  const lenisRef = useRef(null); 
-  const pageRef = useRef(null); // <-- NUEVO: Referencia para animar toda la página
 
+  // <-- ¡NUEVO! Buscamos en la base de datos el proyecto que coincida con el ID
   const projectId = parseInt(id);
   const project = allProjects.find(p => p.id === projectId);
 
@@ -507,12 +467,7 @@ export default function ProjectDetailTemplate() {
     setIsDark(!isDark);
   };
 
-  // 1. INICIALIZAR LENIS
   useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -520,39 +475,20 @@ export default function ProjectDetailTemplate() {
       gestureDirection: 'vertical',
       smooth: true,
     });
-    
-    lenisRef.current = lenis;
 
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
 
+    // <-- ¡NUEVO! Hacemos que scrollee hacia arriba CADA VEZ que cambia el ID
+    window.scrollTo(0, 0);
+
     return () => {
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
     };
-  }, []);
+  }, [id]); // Dependencia del ID para reiniciar lenis en navegación
 
- useLayoutEffect(() => { 
-    // <-- AGREGA comportamiento instantáneo aquí
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); 
-    
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    }
-    
-    // Animación suave de entrada (Fade In) desde abajo
-    gsap.fromTo(pageRef.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.1 }
-    );
-    
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-  }, [id]);
-  
-  // 3. ANIMACIONES DE SCROLL (ScrollTrigger)
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const sections = gsap.utils.toArray(".section-fade");
@@ -574,21 +510,9 @@ export default function ProjectDetailTemplate() {
       });
     });
     return () => ctx.revert();
-  }, [id]); 
+  }, [id]); // Refrescar animaciones al cambiar de proyecto
 
-  // <-- NUEVO: FUNCIÓN PARA DESVANECER ANTES DE CAMBIAR DE RUTA
-  const handleTransition = (nextId) => {
-    gsap.to(pageRef.current, {
-      opacity: 0,
-      y: -40, // Sube un poco mientras se desvanece
-      duration: 0.5,
-      ease: "power2.inOut",
-      onComplete: () => {
-        navigate(`/projects/${nextId}`); // Cambia la URL cuando termina de desaparecer
-      }
-    });
-  };
-
+  // <-- Manejo de errores: Si el usuario pone /projects/99 en la URL
   if (!project) {
     return (
       <div className="min-h-screen bg-[#030303] text-white flex flex-col items-center justify-center">
@@ -598,6 +522,7 @@ export default function ProjectDetailTemplate() {
     );
   }
 
+  // <-- Lógica para saber cuál es el siguiente proyecto automáticamente
   const nextProjectId = projectId === allProjects.length ? 1 : projectId + 1;
   const nextProjectData = allProjects.find(p => p.id === nextProjectId);
 
@@ -607,24 +532,16 @@ export default function ProjectDetailTemplate() {
         
         <Navbar isDark={isDark} toggleTheme={toggleTheme} />
         
-        {/* Envolvemos el contenido en este div referenciado para animar todo junto */}
-        <div ref={pageRef} className="opacity-0">
-          <main>
-            <HeroImageParallax image={project.heroImage} />
-            <ProjectHeader project={project} />
-            <ContentSection project={project} />
-            <ImageGallery images={project.gallery} />
-            <SolutionSection project={project} />
-          </main>
+        <main>
+          <HeroImageParallax image={project.heroImage} />
+          <ProjectHeader project={project} />
+          <ContentSection project={project} />
+          <ImageGallery images={project.gallery} />
+          <SolutionSection project={project} />
+        </main>
 
-          {/* Pasamos la nueva función handleTransition */}
-          <NextProject 
-            nextId={nextProjectId} 
-            nextTitle={nextProjectData.title} 
-            onNavigate={handleTransition} 
-          />
-          <Footer />
-        </div>
+        <NextProject nextId={nextProjectId} nextTitle={nextProjectData.title} />
+        <Footer />
         
       </div>
     </div>

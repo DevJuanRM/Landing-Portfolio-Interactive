@@ -441,13 +441,13 @@ const SolutionSection = ({ project }) => {
   );
 };
 
-const NextProject = ({ nextId, nextTitle, onNavigate }) => {
+const NextProject = ({ nextId, nextTitle }) => {
   const { t } = useTranslation();
-  
+  const navigate = useNavigate();
   return (
     <section 
       className="h-screen flex items-center justify-center border-t border-zinc-200 dark:border-white/10 relative overflow-hidden bg-zinc-900 dark:bg-[#030303] group cursor-pointer" 
-      onClick={() => onNavigate(nextId)} // <-- Cambiado aquí
+      onClick={() => navigate(`/projects/${nextId}`)}
     >
       <div className="absolute inset-0 bg-green-500/0 group-hover:bg-green-500/10 transition-colors duration-700 z-0" />
       
@@ -494,11 +494,10 @@ const Footer = () => {
 
 export default function ProjectDetailTemplate() {
   const { id } = useParams(); 
-  const navigate = useNavigate(); // <-- Añadimos el navigate aquí
   const [isDark, setIsDark] = useState(true);
   
+  // <-- NUEVO: Usamos una referencia para controlar Lenis
   const lenisRef = useRef(null); 
-  const pageRef = useRef(null); // <-- NUEVO: Referencia para animar toda la página
 
   const projectId = parseInt(id);
   const project = allProjects.find(p => p.id === projectId);
@@ -507,7 +506,7 @@ export default function ProjectDetailTemplate() {
     setIsDark(!isDark);
   };
 
-  // 1. INICIALIZAR LENIS
+  // 1. INICIALIZAR LENIS UNA SOLA VEZ
   useEffect(() => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual';
@@ -521,6 +520,7 @@ export default function ProjectDetailTemplate() {
       smooth: true,
     });
     
+    // Guardamos la instancia de Lenis en la referencia
     lenisRef.current = lenis;
 
     lenis.on('scroll', ScrollTrigger.update);
@@ -531,28 +531,25 @@ export default function ProjectDetailTemplate() {
       lenis.destroy();
       gsap.ticker.remove(lenis.raf);
     };
-  }, []);
+  }, []); // <-- Dependencia vacía para que no se destruya al cambiar de página
 
- useLayoutEffect(() => { 
-    // <-- AGREGA comportamiento instantáneo aquí
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); 
+  // 2. FORZAR SCROLL AL INICIO CADA VEZ QUE CAMBIA EL PROYECTO
+  useEffect(() => {
+    // Forzar scroll nativo
+    window.scrollTo(0, 0);
     
+    // Forzar a Lenis a subir instantáneamente sin animación
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
     
-    // Animación suave de entrada (Fade In) desde abajo
-    gsap.fromTo(pageRef.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.1 }
-    );
-    
+    // Refrescar GSAP para que recalcule dónde están las imágenes a animar
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
-  }, [id]);
-  
-  // 3. ANIMACIONES DE SCROLL (ScrollTrigger)
+  }, [id]); // <-- Se ejecuta cada vez que el "id" en la URL cambia
+
+  // 3. ANIMACIONES DE ENTRADA
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       const sections = gsap.utils.toArray(".section-fade");
@@ -576,19 +573,7 @@ export default function ProjectDetailTemplate() {
     return () => ctx.revert();
   }, [id]); 
 
-  // <-- NUEVO: FUNCIÓN PARA DESVANECER ANTES DE CAMBIAR DE RUTA
-  const handleTransition = (nextId) => {
-    gsap.to(pageRef.current, {
-      opacity: 0,
-      y: -40, // Sube un poco mientras se desvanece
-      duration: 0.5,
-      ease: "power2.inOut",
-      onComplete: () => {
-        navigate(`/projects/${nextId}`); // Cambia la URL cuando termina de desaparecer
-      }
-    });
-  };
-
+  // Pantalla de error si ponen un ID que no existe
   if (!project) {
     return (
       <div className="min-h-screen bg-[#030303] text-white flex flex-col items-center justify-center">
@@ -598,6 +583,7 @@ export default function ProjectDetailTemplate() {
     );
   }
 
+  // Lógica de Siguiente Proyecto
   const nextProjectId = projectId === allProjects.length ? 1 : projectId + 1;
   const nextProjectData = allProjects.find(p => p.id === nextProjectId);
 
@@ -607,24 +593,16 @@ export default function ProjectDetailTemplate() {
         
         <Navbar isDark={isDark} toggleTheme={toggleTheme} />
         
-        {/* Envolvemos el contenido en este div referenciado para animar todo junto */}
-        <div ref={pageRef} className="opacity-0">
-          <main>
-            <HeroImageParallax image={project.heroImage} />
-            <ProjectHeader project={project} />
-            <ContentSection project={project} />
-            <ImageGallery images={project.gallery} />
-            <SolutionSection project={project} />
-          </main>
+        <main>
+          <HeroImageParallax image={project.heroImage} />
+          <ProjectHeader project={project} />
+          <ContentSection project={project} />
+          <ImageGallery images={project.gallery} />
+          <SolutionSection project={project} />
+        </main>
 
-          {/* Pasamos la nueva función handleTransition */}
-          <NextProject 
-            nextId={nextProjectId} 
-            nextTitle={nextProjectData.title} 
-            onNavigate={handleTransition} 
-          />
-          <Footer />
-        </div>
+        <NextProject nextId={nextProjectId} nextTitle={nextProjectData.title} />
+        <Footer />
         
       </div>
     </div>

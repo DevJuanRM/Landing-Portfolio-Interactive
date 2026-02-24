@@ -533,10 +533,10 @@ export default function ProjectDetailTemplate() {
     };
   }, []);
 
- useLayoutEffect(() => { 
-    // <-- AGREGA comportamiento instantáneo aquí
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); 
-    
+  // 2. ANIMACIÓN DE ENTRADA Y SCROLL (Fade In)
+  useEffect(() => {
+    // Scroll inmediato invisible
+    window.scrollTo(0, 0);
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
@@ -550,8 +550,8 @@ export default function ProjectDetailTemplate() {
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
-  }, [id]);
-  
+  }, [id]); 
+
   // 3. ANIMACIONES DE SCROLL (ScrollTrigger)
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {

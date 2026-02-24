@@ -441,13 +441,13 @@ const SolutionSection = ({ project }) => {
   );
 };
 
-const NextProject = ({ nextId, nextTitle, onNavigate }) => {
+const NextProject = ({ nextId, nextTitle }) => {
   const { t } = useTranslation();
-  
+  const navigate = useNavigate();
   return (
     <section 
       className="h-screen flex items-center justify-center border-t border-zinc-200 dark:border-white/10 relative overflow-hidden bg-zinc-900 dark:bg-[#030303] group cursor-pointer" 
-      onClick={() => onNavigate(nextId)} // <-- Cambiado aquí
+      onClick={() => navigate(`/projects/${nextId}`)}
     >
       <div className="absolute inset-0 bg-green-500/0 group-hover:bg-green-500/10 transition-colors duration-700 z-0" />
       
@@ -488,17 +488,13 @@ const Footer = () => {
   );
 };
 
-/// ==========================================
+// ==========================================
 // COMPONENTE PRINCIPAL (PLANTILLA)
 // ==========================================
 
 export default function ProjectDetailTemplate() {
   const { id } = useParams(); 
-  const navigate = useNavigate(); // <-- Añadimos el navigate aquí
   const [isDark, setIsDark] = useState(true);
-  
-  const lenisRef = useRef(null); 
-  const pageRef = useRef(null); // <-- NUEVO: Referencia para animar toda la página
 
   const projectId = parseInt(id);
   const project = allProjects.find(p => p.id === projectId);
@@ -506,127 +502,3 @@ export default function ProjectDetailTemplate() {
   const toggleTheme = () => {
     setIsDark(!isDark);
   };
-
-  // 1. INICIALIZAR LENIS
-  useEffect(() => {
-    if ('scrollRestoration' in window.history) {
-      window.history.scrollRestoration = 'manual';
-    }
-
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-    });
-    
-    lenisRef.current = lenis;
-
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-    gsap.ticker.lagSmoothing(0);
-
-    return () => {
-      lenis.destroy();
-      gsap.ticker.remove(lenis.raf);
-    };
-  }, []);
-
- useLayoutEffect(() => { 
-    // <-- AGREGA comportamiento instantáneo aquí
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); 
-    
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, { immediate: true });
-    }
-    
-    // Animación suave de entrada (Fade In) desde abajo
-    gsap.fromTo(pageRef.current,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power3.out", delay: 0.1 }
-    );
-    
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-  }, [id]);
-  
-  // 3. ANIMACIONES DE SCROLL (ScrollTrigger)
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      const sections = gsap.utils.toArray(".section-fade");
-      sections.forEach((section) => {
-        gsap.fromTo(section,
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            scrollTrigger: {
-              trigger: section,
-              start: "top 85%",
-              end: "bottom center",
-              toggleActions: "play none none reverse"
-            }
-          }
-        );
-      });
-    });
-    return () => ctx.revert();
-  }, [id]); 
-
-  // <-- NUEVO: FUNCIÓN PARA DESVANECER ANTES DE CAMBIAR DE RUTA
-  const handleTransition = (nextId) => {
-    gsap.to(pageRef.current, {
-      opacity: 0,
-      y: -40, // Sube un poco mientras se desvanece
-      duration: 0.5,
-      ease: "power2.inOut",
-      onComplete: () => {
-        navigate(`/projects/${nextId}`); // Cambia la URL cuando termina de desaparecer
-      }
-    });
-  };
-
-  if (!project) {
-    return (
-      <div className="min-h-screen bg-[#030303] text-white flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mb-4">Proyecto no encontrado</h1>
-        <a href="/" className="text-green-500 hover:underline">Volver al inicio</a>
-      </div>
-    );
-  }
-
-  const nextProjectId = projectId === allProjects.length ? 1 : projectId + 1;
-  const nextProjectData = allProjects.find(p => p.id === nextProjectId);
-
-  return (
-    <div className={cn("transition-colors duration-500 w-full min-h-screen", isDark ? "dark" : "")}>
-      <div className="bg-white dark:bg-[#030303] min-h-screen text-zinc-900 dark:text-white font-sans selection:bg-green-500 selection:text-white dark:selection:text-black overflow-hidden transition-colors duration-500">
-        
-        <Navbar isDark={isDark} toggleTheme={toggleTheme} />
-        
-        {/* Envolvemos el contenido en este div referenciado para animar todo junto */}
-        <div ref={pageRef} className="opacity-0">
-          <main>
-            <HeroImageParallax image={project.heroImage} />
-            <ProjectHeader project={project} />
-            <ContentSection project={project} />
-            <ImageGallery images={project.gallery} />
-            <SolutionSection project={project} />
-          </main>
-
-          {/* Pasamos la nueva función handleTransition */}
-          <NextProject 
-            nextId={nextProjectId} 
-            nextTitle={nextProjectData.title} 
-            onNavigate={handleTransition} 
-          />
-          <Footer />
-        </div>
-        
-      </div>
-    </div>
-  );
-}

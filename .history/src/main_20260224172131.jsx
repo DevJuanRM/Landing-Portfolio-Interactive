@@ -5,7 +5,6 @@ import App from './App.jsx'
 import ProjectDetail from './ProjectDetail.jsx' // Tu nuevo archivo
 import './index.css'
 import './i18n';
-import AudioPlayer from './AudioPlayer.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

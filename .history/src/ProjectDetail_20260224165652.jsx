@@ -441,13 +441,13 @@ const SolutionSection = ({ project }) => {
   );
 };
 
-const NextProject = ({ nextId, nextTitle, onNavigate }) => {
+const NextProject = ({ nextId, nextTitle }) => {
   const { t } = useTranslation();
-  
+  const navigate = useNavigate();
   return (
     <section 
       className="h-screen flex items-center justify-center border-t border-zinc-200 dark:border-white/10 relative overflow-hidden bg-zinc-900 dark:bg-[#030303] group cursor-pointer" 
-      onClick={() => onNavigate(nextId)} // <-- Cambiado aquí
+      onClick={() => navigate(`/projects/${nextId}`)}
     >
       <div className="absolute inset-0 bg-green-500/0 group-hover:bg-green-500/10 transition-colors duration-700 z-0" />
       
@@ -533,10 +533,10 @@ export default function ProjectDetailTemplate() {
     };
   }, []);
 
- useLayoutEffect(() => { 
-    // <-- AGREGA comportamiento instantáneo aquí
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); 
-    
+  // 2. ANIMACIÓN DE ENTRADA Y SCROLL (Fade In)
+  useEffect(() => {
+    // Scroll inmediato invisible
+    window.scrollTo(0, 0);
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
@@ -550,8 +550,8 @@ export default function ProjectDetailTemplate() {
     setTimeout(() => {
       ScrollTrigger.refresh();
     }, 100);
-  }, [id]);
-  
+  }, [id]); 
+
   // 3. ANIMACIONES DE SCROLL (ScrollTrigger)
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {

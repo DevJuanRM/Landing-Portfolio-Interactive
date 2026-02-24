@@ -5,14 +5,13 @@ import App from './App.jsx'
 import ProjectDetail from './ProjectDetail.jsx' // Tu nuevo archivo
 import './index.css'
 import './i18n';
-import AudioPlayer from './AudioPlayer.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-    <AudioPlayer /> 
       <Routes>
         {/* La ruta principal "/" cargará tu landing page */}
+        <AudioPlayer />
         <Route path="/" element={<App />} />
         
         {/* Esta ruta cargará la plantilla cuando entres a /projects/1, /projects/2, etc. */}

@@ -23,8 +23,6 @@ import {
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { useTranslation } from 'react-i18next';
-// Al principio de tu App.jsx, junto a los demás imports
-import AudioPlayer from './AudioPlayer';
 
 function cn(...inputs) {
   return twMerge(clsx(inputs));
@@ -529,24 +527,15 @@ const WorksSection = () => {
   const { t } = useTranslation();
 
   return (
-    // <-- Agregamos overflow-hidden por seguridad
-    <section id="work" className="py-32 section-anim relative transition-colors duration-500 overflow-hidden">
-      
-      {/* <-- Cambiamos items-end por items-start md:items-end para celulares */}
-      <div className="px-6 md:px-20 mb-32 max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-        
-        <div className="w-full max-w-full">
-          <p className="text-green-600 dark:text-green-500 font-mono text-sm uppercase tracking-widest mb-4">
-            {t('works.subtitle')}
-          </p>
-          {/* <-- Ajustamos text-5xl para móvil, text-8xl para PC, y añadimos break-words */}
-          <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85] text-zinc-900 dark:text-white transition-colors duration-500 break-words w-full">
+    <section id="work" className="py-32 section-anim relative transition-colors duration-500">
+      <div className="px-6 md:px-20 mb-32 max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between items-end gap-10">
+        <div>
+          <p className="text-green-600 dark:text-green-500 font-mono text-sm uppercase tracking-widest mb-4">{t('works.subtitle')}</p>
+          <h2 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-[0.85] text-zinc-900 dark:text-white transition-colors duration-500">
             {t('works.title1')}<br/>{t('works.title2')}
           </h2>
         </div>
-
-        {/* <-- Quitamos text-right en móviles para que se vea alineado a la izquierda limpio */}
-        <p className="max-w-md text-zinc-600 dark:text-gray-400 text-left transition-colors duration-500">
+        <p className="max-w-md text-zinc-600 dark:text-gray-400 text-right md:text-left transition-colors duration-500">
           {t('works.description')}
         </p>
       </div>

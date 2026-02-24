@@ -1,0 +1,15 @@
+@import "tailwindcss";
+body { background: #050505; color: white; }
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Optimización para GSAP */
+.will-change-transform {
+  will-change: transform;
+}
